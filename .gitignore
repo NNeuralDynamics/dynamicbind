@@ -8,3 +8,4 @@
 workdir_v1/
 esm_models/
 run.log
+*.npy
