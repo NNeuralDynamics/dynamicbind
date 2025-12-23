@@ -1,1 +1,10 @@
 *.pyc
+/results/
+/data/
+/workdir/
+/dz_data/
+.DS_Store
+*.zip
+workdir_v1/
+esm_models/
+run.log
