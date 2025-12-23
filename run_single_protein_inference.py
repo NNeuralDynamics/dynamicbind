@@ -20,6 +20,8 @@ def do(cmd, get=False, show=True):
 
 
 import argparse
+from pathlib import Path
+home_dir = Path("~").expanduser()
 parser = argparse.ArgumentParser(description="python run_single_protein_inference.py data/origin-1qg8.pdb data/1qg8_input.csv --header test")
 
 parser.add_argument('proteinFile', type=str, default='test.pdb', help='protein file')
@@ -33,8 +35,8 @@ parser.add_argument('--device', type=int, default=0, help='CUDA_VISIBLE_DEVICES'
 parser.add_argument('--no_inference', action='store_true', default=False, help='used, when the inference part is already done.')
 parser.add_argument('--no_relax', action='store_true', default=False, help='by default, the last frame will be relaxed.')
 parser.add_argument('--movie', action='store_true', default=False, help='by default, no movie will generated.')
-parser.add_argument('--python', type=str, default='/home/zhangjx/anaconda3/envs/dynamicbind/bin/python', help='point to the python in dynamicbind env.')
-parser.add_argument('--relax_python', type=str, default='/home/zhangjx/anaconda3/envs/relax/bin/python', help='point to the python in relax env.')
+parser.add_argument('--python', type=str, default=str(home_dir / "miniconda/envs/dynamicbind/bin/python"), help='point to the python in dynamicbind env.')
+parser.add_argument('--relax_python', type=str, default=str(home_dir / 'miniconda/envs/relax/bin/python'), help='point to the python in relax env.')
 parser.add_argument('-l', '--protein_path_in_ligandFile', action='store_true', default=False, help='read the protein from the protein_path in ligandFile.')
 parser.add_argument('--no_clean', action='store_true', default=False, help='by default, the input protein file will be cleaned. only take effect, when protein_path_in_ligandFile is true')
 parser.add_argument('-s', '--ligand_is_sdf', action='store_true', default=False, help='ligand file is in sdf format.')
