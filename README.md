@@ -11,7 +11,7 @@ Create a new environment for inference. While in the project directory run
 
     conda env create -f dynamicbind_environment.yml
 
-Or you setup step by step:
+Or you setup step-by-step:
 
     conda create -n dynamicbind python=3.10
 
@@ -31,8 +31,15 @@ Install
     pip install e3nn  fair-esm spyrmsd
     conda install pyg  pyyaml  biopython -c pyg
 
-Create a new environment for structural Relaxation.
+Next, create a new environment for structural Relaxation.
 
+Either create from the `.yml` file
+
+    conda env create -f relax_environment.yml
+
+or create step-by-step
+
+    conda deactivate
     conda create --name relax python=3.8
 
 Activate the environment
@@ -44,7 +51,7 @@ Install
     conda install -c conda-forge openmm pdbfixer libstdcxx-ng openmmforcefields openff-toolkit ambertools=22 compilers biopython
 
 # Checkpoints Download
-Download and unzip the workdir.zip containing the model checkpoint form https://zenodo.org/records/10137507, v2 is contained here https://zenodo.org/records/10183369.
+Download and unzip the workdir.zip containing the model checkpoint from https://zenodo.org/records/10183369.
 # Inference
 
 ## Dynamic Docking
