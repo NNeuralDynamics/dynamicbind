@@ -4,3 +4,4 @@
 /esm_models/
 /results/
 /workdir/
+*.log
