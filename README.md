@@ -7,37 +7,11 @@ DynamicBind recovers ligand-specific conformations from unbound protein structur
 
 # Setup Environment
 
-Create a new environment for inference. While in the project directory run 
+Create a new environments for inference. While in the project directory run 
 
-    conda env create -f environment.yml
+    conda env create -f environment_dynamicbind.yml
+    conda env create -f environment_relax.yml
 
-Or you setup step by step:
-
-    conda create -n dynamicbind python=3.10
-
-Activate the environment
-
-    conda activate dynamicbind
-
-Install
-    
-    conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
-    conda install -c conda-forge rdkit
-    conda install pyg  pyyaml  biopython -c pyg
-    pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.0.0+cu117.html
-    pip install e3nn  fair-esm spyrmsd
-
-Create a new environment for structural Relaxation.
-
-    conda create --name relax python=3.8
-
-Activate the environment
-
-    conda activate relax
-
-Install
-
-    conda install -c conda-forge openmm pdbfixer libstdcxx-ng openmmforcefields openff-toolkit ambertools=22 compilers biopython
 
 # Checkpoints Download
 Download and unzip the workdir.zip containing the model checkpoint form https://zenodo.org/records/10137507, v2 is contained here https://zenodo.org/records/10183369.

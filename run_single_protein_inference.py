@@ -1,4 +1,4 @@
-#!/home/zhangjx/anaconda3/envs/dynamicbind/bin/python
+#!$HOME/miniconda3/envs/dynamicbind/bin/python
 import numpy as np
 import pandas as pd
 
@@ -8,6 +8,7 @@ import subprocess
 from datetime import datetime
 import logging
 import rdkit.Chem as Chem
+from pathlib import Path
 
 def do(cmd, get=False, show=True):
     if get:
@@ -33,8 +34,8 @@ parser.add_argument('--device', type=int, default=0, help='CUDA_VISIBLE_DEVICES'
 parser.add_argument('--no_inference', action='store_true', default=False, help='used, when the inference part is already done.')
 parser.add_argument('--no_relax', action='store_true', default=False, help='by default, the last frame will be relaxed.')
 parser.add_argument('--movie', action='store_true', default=False, help='by default, no movie will generated.')
-parser.add_argument('--python', type=str, default='/home/zhangjx/anaconda3/envs/dynamicbind/bin/python', help='point to the python in dynamicbind env.')
-parser.add_argument('--relax_python', type=str, default='/home/zhangjx/anaconda3/envs/relax/bin/python', help='point to the python in relax env.')
+parser.add_argument('--python', type=str, default='~/micromamba/envs/dynamicbind/bin/python', help='point to the python in dynamicbind env.')
+parser.add_argument('--relax_python', type=str, default='~/micromamba/envs/relax/bin/python', help='point to the python in relax env.')
 parser.add_argument('-l', '--protein_path_in_ligandFile', action='store_true', default=False, help='read the protein from the protein_path in ligandFile.')
 parser.add_argument('--no_clean', action='store_true', default=False, help='by default, the input protein file will be cleaned. only take effect, when protein_path_in_ligandFile is true')
 parser.add_argument('-s', '--ligand_is_sdf', action='store_true', default=False, help='ligand file is in sdf format.')
@@ -44,13 +45,15 @@ parser.add_argument('--model', type=int, default=1, help='default model version'
 parser.add_argument('--seed', type=int, default=42, help='set seed number')
 parser.add_argument('--rigid_protein', action='store_true', default=False, help='Use no noise in the final step of the reverse diffusion')
 parser.add_argument('--hts', action='store_true', default=False, help='high-throughput mode')
-
+parser.add_argument("--log_dir",default=Path(__file__).parent/'logs',help="Directory in which the log file is saved")
 args = parser.parse_args()
 
 timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M")
 
+log_dir = Path(args.log_dir)
+log_dir.mkdir(exist_ok=True,parents=True)
 logging.basicConfig(level=logging.INFO)
-handler = logging.FileHandler(f'run.log')
+handler = logging.FileHandler(log_dir / 'run.log')
 logger = logging.getLogger("")
 logger.addHandler(handler)
 
@@ -60,10 +63,9 @@ logging.info(f'''\
 --------------------------------
 ''')
 
-# python='/mnt/nas/glx-share-cache/InfraDev/glx-schrodinger/envs/dynamicbind_rdkit2022/bin/python'
-python = args.python
-relax_python = args.relax_python
-
+python = Path(args.python)#.resolve()
+relax_python = Path(args.relax_python)#.resolve()
+print(f"python: {python}\nrelax:{relax_python}")
 os.environ['PATH'] = os.path.dirname(relax_python) + ":" + os.environ['PATH']
 file_path = os.path.realpath(__file__)
 script_folder = os.path.dirname(file_path)

@@ -6,6 +6,7 @@ import sys
 
 from Bio.PDB import PDBParser, MMCIFParser
 from Bio.PDB import PDBIO, Select, MMCIFIO
+from pdbfixer import PDBFixer
 import argparse
 from tqdm import tqdm
 parser = argparse.ArgumentParser(description="python clean_pdb.py a.pdb a_cleaned.pdb")
