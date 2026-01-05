@@ -1,1 +1,6 @@
 *.pyc
+/data/
+/dz_data/
+/esm_models/
+/results/
+/workdir/
